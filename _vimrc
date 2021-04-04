@@ -2,7 +2,6 @@ syntax on
 filetype plugin on
 
 set nocompatible
-set signcolumn=yes
 set noundofile
 set undodir=~\.vim\undodir
 set noundofile
@@ -36,6 +35,7 @@ set nowrap
 set splitright
 set splitbelow
 set list
+set lisp
 set scrolloff=10
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
@@ -45,18 +45,13 @@ call plug#begin('~\.config\nvim\plugged\')
 
 Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
-Plug 'vimwiki/vimwiki'
 
 Plug 'itchyny/lightline.vim'
-Plug 'srcery-colors/srcery-vim'
-Plug 'bratpeki/truedark-vim'
-Plug 'jdsimcoe/abstract.vim'
-Plug 'moskytw/luthadel.vim'
-Plug 'UnikMask/iroh-vim'
-Plug 'gruvbox-community/gruvbox'
+Plug 'liuchengxu/space-vim-dark'
+Plug 'ghifarit53/tokyonight-vim'
+Plug 'joshdick/onedark.vim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
-Plug 'szw/vim-maximizer'
 Plug 'neovim/nvim-lspconfig'
 Plug 'nvim-lua/completion-nvim'
 
@@ -75,7 +70,19 @@ nnoremap <leader>pu :PlugUpgrade<CR>
 nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>pc :PlugClean<CR>
 nnoremap <silent> <leader>on :Vex<CR>:vertical resize 30<CR>
-nnoremap <silent> <leader>mm :MaximizerToggle<CR>
+nnoremap <leader>xc :!cls && clang % -o %<<CR> 
+nnoremap <leader>xp :!cls && python %<CR> 
+nnoremap <leader>xl :!cls && clisp %<CR>
+nnoremap <leader>xr :!cls && rustc %<CR>
+nnoremap <leader>cr :RustTest!<CR>
+nnoremap <leader>out :!%<<CR>
+nnoremap <leader>tp :tabnew<CR>:term<CR>ipython<CR>
+nnoremap <leader>tl :tabnew<CR>:term<CR>iclisp<CR>
+nnoremap <leader>dl :!sbcl --load %<CR>
+nnoremap <leader>qt iexit()<CR>jj:tabclose<CR>
+nnoremap <leader>rb <C-^>
+nnoremap <leader>p "+p<CR>
+nnoremap <leader>y ggVG"+y<CR>
 " inoremap <silent> <leader><Tab> <C-n>
 
 nnoremap <Up> <NUL>
@@ -93,45 +100,26 @@ nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>h :wincmd h<CR>
 
-color luthadel
-set notermguicolors
-set bg=dark
+colorscheme space-vim-dark
+set termguicolors
+hi Normal     ctermbg=NONE guibg=NONE
+hi LineNr     ctermbg=NONE guibg=NONE
+hi SignColumn ctermbg=NONE guibg=NONE
+hi Comment    ctermfg=59   guifg=#5C6370
 
-let g:gruvbox_invert_selection=1
-let g:gruvbox_italicize_strings=1
-let g:gruvbox_italicize_comments=1
-let g:gruvbox_invert_indent_guides=1
-let g:gruvbox_improved_warnings=1
-
-let g:srcery_dim_lisp_paren=1
-let g:srcery_italic=1
-let g:srcery_bold=1
-let g:srcery_underline=1
-let g:srcery_inverse=1
-
-let g:lightline = {'colorscheme': 'deus'}
 highlight ColorColumn ctermbg=8 guibg=grey
 set colorcolumn=80
+
+set bg=dark
+
+
+let g:lightline = {'colorscheme': 'simpleblack'}
 
 if has('nvim')
 
     tnoremap jj <C-\><C-n>
 
 endif
-
-nnoremap <leader>xc :!cls && clang % -o %<<CR> 
-nnoremap <leader>xp :!cls && python %<CR> 
-nnoremap <leader>xl :!cls && clisp %<CR>
-nnoremap <leader>xr :!cls && rustc %<CR>
-nnoremap <leader>cr :RustTest!<CR>
-nnoremap <leader>out :!%<<CR>
-nnoremap <leader>tp :tabnew<CR>:term<CR>ipython<CR>
-nnoremap <leader>tl :tabnew<CR>:term<CR>iclisp<CR>
-nnoremap <leader>dl :!sbcl --load %<CR>
-nnoremap <leader>qt iexit()<CR>jj:tabclose<CR>
-nnoremap <leader>rb <C-^>
-nnoremap <leader>p "+p<CR>
-nnoremap <leader>y ggVG"+y<CR>
 
 :lua << EOF
   local nvim_lsp = require('lspconfig')
@@ -160,20 +148,27 @@ nnoremap <leader>y ggVG"+y<CR>
       enable = true,
     },
   }
-
-  require'nvim-treesitter.configs'.setup {
-    indent = {
-      enable = true
-    }
-  }
-
 EOF
 
 command! Format execute 'lua vim.lsp.buf.formatting()'
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
+"LOVE YOU LISP!!
 augroup Colors
     autocmd!
-    autocmd FileType rust color iroh
+    autocmd FileType lisp color tokyonight
+    autocmd FileType python rust vim c cpp erlang color space-vim-dark
 augroup END
+
+"NETRW FOR NERDTREE
+let g:netrw_banner = 0
+let g:netrw_liststyle = 3
+let g:netrw_browse_split = 4
+let g:netrw_altv = 1
+let g:netrw_winsize = 25
+
+" augroup ProjectDrawer
+"   autocmd!
+"   autocmd VimEnter * :Vexplore
+" augroup END
 
