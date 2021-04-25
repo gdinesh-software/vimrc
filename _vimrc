@@ -1,4 +1,3 @@
-syntax on
 filetype plugin on
 
 set nocompatible
@@ -29,6 +28,7 @@ set showcmd
 set guicursor=n-v-c:block,i-ci-ve:ver25,r-cr:hor20,o:hor50
 		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
 		  \,sm:block-blinkwait175-blinkoff150-blinkon175
+set guifont="Cascadia Code Semibold"
 
 set updatetime=50
 set nowrap
@@ -47,9 +47,10 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'tpope/vim-commentary'
 
 Plug 'itchyny/lightline.vim'
-Plug 'liuchengxu/space-vim-dark'
-Plug 'ghifarit53/tokyonight-vim'
-Plug 'joshdick/onedark.vim'
+Plug 'arcticicestudio/nord-vim'
+Plug 'cocopon/iceberg.vim'
+Plug 'TheRealKizu/kizu.vim'
+Plug 'NieTiger/halcyon-neovim'
 
 Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
 Plug 'neovim/nvim-lspconfig'
@@ -70,7 +71,8 @@ nnoremap <leader>pu :PlugUpgrade<CR>
 nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>pc :PlugClean<CR>
 nnoremap <silent> <leader>on :Vex<CR>:vertical resize 30<CR>
-nnoremap <leader>xc :!cls && clang % -o %<<CR> 
+nnoremap <silent> <leader>rp :vertical resize 125<CR>
+nnoremap <silent> <leader>xc :!clang % && a.exe<CR>
 nnoremap <leader>xp :!cls && python %<CR> 
 nnoremap <leader>xl :!cls && clisp %<CR>
 nnoremap <leader>xr :!cls && rustc %<CR>
@@ -83,6 +85,12 @@ nnoremap <leader>qt iexit()<CR>jj:tabclose<CR>
 nnoremap <leader>rb <C-^>
 nnoremap <leader>p "+p<CR>
 nnoremap <leader>y ggVG"+y<CR>
+nnoremap <silent> <leader>bb :buffers<CR>
+nnoremap <silent> <leader>bj :bn<CR>
+nnoremap <silent> <leader>bk :bp<CR>
+nnoremap <silent> <leader>bd :bw<CR>
+nnoremap <silent> <leader>bD :bw!<CR>
+
 " inoremap <silent> <leader><Tab> <C-n>
 
 nnoremap <Up> <NUL>
@@ -100,20 +108,24 @@ nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>h :wincmd h<CR>
 
-colorscheme space-vim-dark
-set termguicolors
-hi Normal     ctermbg=NONE guibg=NONE
-hi LineNr     ctermbg=NONE guibg=NONE
-hi SignColumn ctermbg=NONE guibg=NONE
-hi Comment    ctermfg=59   guifg=#5C6370
+let g:nord_bold_vertical_split_line=1
+let g:nord_bold=1
+let g:nord_italic=1
+let g:nord_italic_comments=1
 
-highlight ColorColumn ctermbg=8 guibg=grey
+let g:sierra_Pitch=1
+
+let g:alduin_Shout_Become_Ethereal=1
+
+colorscheme kizu
+set termguicolors
+
+highlight ColorColumn ctermbg=7 guibg=grey
 set colorcolumn=80
 
 set bg=dark
 
-
-let g:lightline = {'colorscheme': 'simpleblack'}
+let g:lightline = {'colorscheme': 'iceberg'}
 
 if has('nvim')
 
@@ -154,13 +166,19 @@ command! Format execute 'lua vim.lsp.buf.formatting()'
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 
 "LOVE YOU LISP!!
-augroup Colors
-    autocmd!
-    autocmd FileType lisp color tokyonight
-    autocmd FileType python rust vim c cpp erlang color space-vim-dark
-augroup END
+" augroup Colors
+"     autocmd!
+"     autocmd FileType lisp color tokyonight
+"     autocmd FileType python color dracula
+"     autocmd FileType erlang color space-vim-dark
+"     autocmd FileType rust color space-vim-dark
+"     autocmd FileType vim color space-vim-dark
+"     autocmd FileType c color space-vim-dark
+"     autocmd FileType cpp color space-vim-dark
+" augroup END
 
 "NETRW FOR NERDTREE
+
 let g:netrw_banner = 0
 let g:netrw_liststyle = 3
 let g:netrw_browse_split = 4
@@ -171,4 +189,3 @@ let g:netrw_winsize = 25
 "   autocmd!
 "   autocmd VimEnter * :Vexplore
 " augroup END
-

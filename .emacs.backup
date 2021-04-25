@@ -1,4 +1,4 @@
-(setq frame-title-format "emacs")
+(setq frame-title-format "Emacs")
 (setq inhibit-startup-message t)
 (setq default-directory "~/")
 (setq inferior-lisp-program (executable-find "sbcl"))
@@ -8,7 +8,7 @@
 (setq scroll-margin 8)
 
 (global-set-key (kbd "<escape>") 'keyboard-escape-quit)
-(load-theme 'spacemacs-dark t)
+(load-theme 'nord t)
 (scroll-bar-mode -1)
 (tool-bar-mode -1)
 (tooltip-mode -1)
@@ -17,6 +17,7 @@
 (show-paren-mode t)
 (global-tree-sitter-mode)
 (add-hook 'tree-sitter-after-on-hook #'tree-sitter-hl-mode)
+(setq-default cursor-type 'hbar)
 
 (set-face-attribute 'default nil :font "Cascadia Mono Semibold" :height 100)
 
@@ -73,6 +74,9 @@
 		eshell-mode-hook))
   (add-hook mode (lambda () (display-line-numbers-mode 0))))
 
+(display-line-numbers-mode t)
+(setq display-line-numbers 'relative)
+
 (use-package rainbow-delimiters
   :hook (prog-mode . rainbow-delimiters-mode))
 
@@ -119,7 +123,7 @@
     (setq evil-want-C-i-jump nil)
   :config
     (evil-mode 1)
-    (define-key evil-insert-state-map (kbd "C-g") 'evil-normal-state)
+    (define-key evil-insert-state-map (kbd "C-j") 'evil-normal-state)
     (define-key evil-insert-state-map (kbd "C-h") 'evil-delete-backward-char-and-join)
     (evil-global-set-key 'motion "j" 'evil-next-visual-line)
     (evil-global-set-key 'motion "k" 'evil-previous-visual-line)
@@ -144,3 +148,4 @@
 (use-package tree-sitter-langs)
 (use-package common-lisp-snippets)
 (use-package rust-mode)
+(use-package dracula-theme)
