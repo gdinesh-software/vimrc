@@ -25,28 +25,30 @@ set showcmd
 set guicursor=n-v-c:block,i-ci-ve:block,r-cr:hor20,o:hor50
 		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
 		  \,sm:block-blinkwait175-blinkoff150-blinkon175
-set guifont="Cascadia Code Semibold"
+set guifont="Fira Code Semibold"
 set updatetime=50
 set nowrap
 set splitright
 set splitbelow
 set list
 set scrolloff=10
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
 set t_Co=256
 
 call plug#begin('~\.config\nvim\plugged\')
     Plug 'jiangmiao/auto-pairs'
     Plug 'tpope/vim-commentary'
-    Plug 'vimwiki/vimwiki'
-    Plug 'itchyny/lightline.vim'
-    Plug 'arcticicestudio/nord-vim'
-    Plug 'cocopon/iceberg.vim'
-    Plug 'TheRealKizu/kizu.vim'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-surround'
     Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-lua/completion-nvim'
+    Plug 'kyazdani42/nvim-web-devicons'
+    Plug 'nvim-lua/popup.nvim'
+    Plug 'nvim-lua/plenary.nvim'
+    Plug 'nvim-telescope/telescope.nvim'
+    Plug 'itchyny/lightline.vim'
+    Plug 'arcticicestudio/nord-vim'
+    Plug 'morhetz/gruvbox'
 call plug#end()
 
 inoremap jj <Esc>
@@ -64,10 +66,9 @@ nnoremap <leader>pc :PlugClean<CR>
 nnoremap <silent> <leader>on :Vex<CR>:vertical resize 30<CR>
 nnoremap <silent> <leader>rp :vertical resize 125<CR>
 nnoremap <silent> <leader>xc :!clang % && a.exe<CR>
-nnoremap <leader>xp :!cls && python %<CR> 
+nnoremap <leader>xp :!cls && py %<CR>
 nnoremap <leader>xl :!cls && clisp %<CR>
-nnoremap <leader>xr :!cls && rustc %<CR>
-nnoremap <leader>cr :RustTest!<CR>
+nnoremap <leader>cr :!cls && cargo run<CR>
 nnoremap <leader>out :!%<<CR>
 nnoremap <leader>tl :tabnew<CR>:term<CR>iclisp<CR>
 nnoremap <leader>dl :!sbcl --load %<CR>
@@ -96,7 +97,13 @@ nnoremap <C-h> :cprev<CR>
 nnoremap H 0
 nnoremap L $
 
+let g:gruvbox_italic=1
+let g:gruvbox_tranparent_bg=1
+let g:gruvbox_improved_warnings=1
+let g:gruvbox_italicize_strings=1
 let g:nord_bold_vertical_split_line=1
+let g:nord_cursor_line_number_background = 1
+let g:nord_uniform_status_lines = 1
 let g:nord_bold=1
 let g:nord_italic=1
 let g:nord_italic_comments=1
@@ -106,7 +113,7 @@ set termguicolors
 highlight ColorColumn ctermbg=7 guibg=grey
 set colorcolumn=80
 set bg=dark
-let g:lightline = {'colorscheme': 'iceberg'}
+let g:lightline = {'colorscheme': 'nord'}
 
 if has('nvim')
     tnoremap jj <C-\><C-n>
@@ -124,7 +131,7 @@ endif
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>xD', '<cmd>lua vim.lsp.buf.type_definition()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>xr', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
     vim.api.nvim_buf_set_keymap(bufnr, 'n', 'gr', '<cmd>lua vim.lsp.buf.references()<CR>', opts)
-    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>xd', '<cmd>lua vim.lsp.util.show_line_diagnostics()<CR>', opts)
+    vim.api.nvim_buf_set_keymap(bufnr, 'n', '<leader>xd', '<cmd>lua vim.lsp.util.show_line_diagnostic()<CR>', opts)
   end
   local servers = { 'clangd', 'jedi_language_server', 'rls'}
   for _, lsp in ipairs(servers) do
@@ -132,13 +139,15 @@ endif
       on_attach = on_attach,
     }
   end
-  require 'nvim-treesitter.install'.compilers = {'clang'}
+  require 'nvim-treesitter.install'.compilers = {'clang'},
   require'nvim-treesitter.configs'.setup {
     highlight = {
       enable = true,
     },
   }
+
 EOF
+
 command! Format execute 'lua vim.lsp.buf.formatting()'
 let g:completion_matching_strategy_list = ['exact', 'substring', 'fuzzy']
 "NETRW FOR NERDTREE
