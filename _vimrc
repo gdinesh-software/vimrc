@@ -28,13 +28,13 @@ call plug#begin('~\.config\nvim\plugged\')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-lua/completion-nvim'
-    Plug 'kyazdani42/nvim-web-devicons'
     Plug 'nvim-lua/popup.nvim'
     Plug 'nvim-lua/plenary.nvim'
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'itchyny/lightline.vim'
     Plug 'arcticicestudio/nord-vim'
     Plug 'morhetz/gruvbox'
+    Plug 'AlessandroYorba/Alduin'
 call plug#end()
 
 inoremap jj <Esc>
@@ -66,7 +66,7 @@ nnoremap <silent> <leader>bk :bp<CR>
 nnoremap <silent> <leader>bd :bw<CR>
 nnoremap <silent> <leader>bD :bw!<CR>
 nnoremap <Up> <NUL>
-nnoremap <Right> <NUL> 
+nnoremap <Right> <NUL>
 nnoremap <Left> <NUL>
 nnoremap <Down> <NUL>
 inoremap <Up> <NUL>
@@ -93,6 +93,7 @@ let g:nord_uniform_status_lines = 1
 let g:nord_bold=1
 let g:nord_italic=1
 let g:nord_italic_comments=1
+let g:alduin_Shout_Become_Ethereal=1
 colorscheme nord
 set termguicolors
 
