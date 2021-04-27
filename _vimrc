@@ -1,38 +1,24 @@
 filetype plugin on
-set nocompatible
-set noundofile
-set undodir=~\.config\undodir\
-set noundofile
-set noswapfile
-set nobackup
-set nu rnu
+set nobk noswapfile noudf udir=~\.config\undodir\
+set nu rnu ru
 set backspace=eol,indent,start
 set incsearch
 set nohls
-set ruler
-set noshowmode
-set tabstop=4
-set softtabstop=4
-set expandtab
-set smarttab
+set nosmd
+set ts=4 sts=4 et sta si
 set shiftwidth=4
-set smartindent
 set cot=menuone,noselect shm+=c
-set scrolloff=10
-set laststatus=2
-set cmdheight=2
-set showcmd
+set so=10
+set ls=2
+set ch=2 sc
 set guicursor=n-v-c:block,i-ci-ve:block,r-cr:hor20,o:hor50
 		  \,a:blinkwait700-blinkoff400-blinkon250-Cursor/lCursor
 		  \,sm:block-blinkwait175-blinkoff150-blinkon175
-set guifont="Fira Code Semibold"
-set updatetime=50
+set ut=50
 set nowrap
-set splitright
-set splitbelow
+set spr sb
 set list
-set scrolloff=10
-set t_Co=256
+set so=10
 
 call plug#begin('~\.config\nvim\plugged\')
     Plug 'jiangmiao/auto-pairs'
@@ -52,7 +38,6 @@ call plug#begin('~\.config\nvim\plugged\')
 call plug#end()
 
 inoremap jj <Esc>
-
 let mapleader = " "
 
 nnoremap <leader>w :w<CR>
@@ -94,6 +79,7 @@ nnoremap <leader>l :wincmd l<CR>
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <C-l> :cnext<CR>
 nnoremap <C-h> :cprev<CR>
+nnoremap Y y$
 nnoremap H 0
 nnoremap L $
 
@@ -112,8 +98,16 @@ set termguicolors
 
 highlight ColorColumn ctermbg=7 guibg=grey
 set colorcolumn=80
-set bg=dark
-let g:lightline = {'colorscheme': 'nord'}
+let g:lightline = {
+      \ 'colorscheme': 'nord',
+      \ 'active': {
+      \   'left': [ [ 'mode', 'paste' ],
+      \             [ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+      \ },
+      \ 'component_function': {
+      \   'gitbranch': 'FugitiveHead'
+      \ },
+      \ }
 
 if has('nvim')
     tnoremap jj <C-\><C-n>
