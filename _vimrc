@@ -33,8 +33,7 @@ call plug#begin('~\.config\nvim\plugged\')
     Plug 'nvim-telescope/telescope.nvim'
     Plug 'itchyny/lightline.vim'
     Plug 'arcticicestudio/nord-vim'
-    Plug 'morhetz/gruvbox'
-    Plug 'AlessandroYorba/Alduin'
+    Plug 'owozsh/amora'
 call plug#end()
 
 inoremap jj <Esc>
@@ -52,7 +51,7 @@ nnoremap <silent> <leader>on :Vex<CR>:vertical resize 30<CR>
 nnoremap <silent> <leader>rp :vertical resize 125<CR>
 nnoremap <silent> <leader>xc :!clang % && a.exe<CR>
 nnoremap <leader>xp :!cls && py %<CR>
-nnoremap <leader>xl :!cls && clisp %<CR>
+nnoremap <leader>xl :!cls && sbcl --load %<CR>
 nnoremap <leader>cr :!cls && cargo run<CR>
 nnoremap <leader>out :!%<<CR>
 nnoremap <leader>tl :tabnew<CR>:term<CR>iclisp<CR>
