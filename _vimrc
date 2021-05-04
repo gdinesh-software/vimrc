@@ -28,12 +28,10 @@ call plug#begin('~\.config\nvim\plugged\')
     Plug 'nvim-treesitter/nvim-treesitter', {'do': 'TSUpdate'}
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-lua/completion-nvim'
-    Plug 'nvim-lua/popup.nvim'
-    Plug 'nvim-lua/plenary.nvim'
-    Plug 'nvim-telescope/telescope.nvim'
     Plug 'itchyny/lightline.vim'
     Plug 'arcticicestudio/nord-vim'
-    Plug 'owozsh/amora'
+    Plug 'katawful/kat.vim'
+    Plug 'sainnhe/sonokai'
 call plug#end()
 
 inoremap jj <Esc>
@@ -49,7 +47,7 @@ nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>pc :PlugClean<CR>
 nnoremap <silent> <leader>on :Vex<CR>:vertical resize 30<CR>
 nnoremap <silent> <leader>rp :vertical resize 125<CR>
-nnoremap <silent> <leader>xc :!clang % && a.exe<CR>
+nnoremap <silent> <leader>xc :!gcc % && a.exe<CR>
 nnoremap <leader>xp :!cls && py %<CR>
 nnoremap <leader>xl :!cls && sbcl --load %<CR>
 nnoremap <leader>cr :!cls && cargo run<CR>
@@ -85,6 +83,7 @@ nnoremap L $
 let g:gruvbox_italic=1
 let g:gruvbox_tranparent_bg=1
 let g:gruvbox_improved_warnings=1
+let g:gruvbox_bold=1
 let g:gruvbox_italicize_strings=1
 let g:nord_bold_vertical_split_line=1
 let g:nord_cursor_line_number_background = 1
@@ -92,9 +91,9 @@ let g:nord_uniform_status_lines = 1
 let g:nord_bold=1
 let g:nord_italic=1
 let g:nord_italic_comments=1
-let g:alduin_Shout_Become_Ethereal=1
-colorscheme nord
+colorscheme kat
 set termguicolors
+set bg=dark
 
 highlight ColorColumn ctermbg=7 guibg=grey
 set colorcolumn=80
@@ -133,7 +132,7 @@ endif
       on_attach = on_attach,
     }
   end
-  require 'nvim-treesitter.install'.compilers = {'clang'},
+  require 'nvim-treesitter.install'.compilers = {'gcc'},
   require'nvim-treesitter.configs'.setup {
     highlight = {
       enable = true,
