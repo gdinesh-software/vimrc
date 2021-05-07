@@ -29,9 +29,7 @@ call plug#begin('~\.config\nvim\plugged\')
     Plug 'neovim/nvim-lspconfig'
     Plug 'nvim-lua/completion-nvim'
     Plug 'itchyny/lightline.vim'
-    Plug 'arcticicestudio/nord-vim'
-    Plug 'katawful/kat.vim'
-    Plug 'sainnhe/sonokai'
+    Plug 'colepeters/spacemacs-theme.vim'
 call plug#end()
 
 inoremap jj <Esc>
@@ -42,15 +40,13 @@ nnoremap <leader>q :q!<CR>
 nnoremap <leader>sv :so ~\_vimrc<CR>
 nnoremap <leader>ev :find ~\_vimrc<CR>
 nnoremap <leader>et :find ~\AppData\Local\Packages\Microsoft.WindowsTerminal_8wekyb3d8bbwe\LocalState\settings.json<CR>
-nnoremap <leader>pu :PlugUpgrade<CR>
+nnoremap <leader>pu :PlugUpdate<CR>
 nnoremap <leader>pi :PlugInstall<CR>
 nnoremap <leader>pc :PlugClean<CR>
 nnoremap <silent> <leader>on :Vex<CR>:vertical resize 30<CR>
 nnoremap <silent> <leader>rp :vertical resize 125<CR>
-nnoremap <silent> <leader>xc :!gcc % && a.exe<CR>
+nnoremap <silent> <leader>xc :!clang % && a.exe<CR>
 nnoremap <leader>xp :!cls && py %<CR>
-nnoremap <leader>xl :!cls && sbcl --load %<CR>
-nnoremap <leader>cr :!cls && cargo run<CR>
 nnoremap <leader>out :!%<<CR>
 nnoremap <leader>tl :tabnew<CR>:term<CR>iclisp<CR>
 nnoremap <leader>dl :!sbcl --load %<CR>
@@ -80,20 +76,8 @@ nnoremap Y y$
 nnoremap H 0
 nnoremap L $
 
-let g:gruvbox_italic=1
-let g:gruvbox_tranparent_bg=1
-let g:gruvbox_improved_warnings=1
-let g:gruvbox_bold=1
-let g:gruvbox_italicize_strings=1
-let g:nord_bold_vertical_split_line=1
-let g:nord_cursor_line_number_background = 1
-let g:nord_uniform_status_lines = 1
-let g:nord_bold=1
-let g:nord_italic=1
-let g:nord_italic_comments=1
-colorscheme kat
+colorscheme spacemacs-theme
 set termguicolors
-set bg=dark
 
 highlight ColorColumn ctermbg=7 guibg=grey
 set colorcolumn=80
@@ -132,7 +116,7 @@ endif
       on_attach = on_attach,
     }
   end
-  require 'nvim-treesitter.install'.compilers = {'gcc'},
+  require 'nvim-treesitter.install'.compilers = {'clang'},
   require'nvim-treesitter.configs'.setup {
     highlight = {
       enable = true,
